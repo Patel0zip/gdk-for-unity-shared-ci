@@ -8,7 +8,7 @@ RUN dotnet publish -c Release -o out
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/runtime:3.1
 WORKDIR /app
-COPY --from=build /app/*/out ./
+COPY --from=build /app/out ./
 
 # Setup GIT
 RUN apt-get update && \
