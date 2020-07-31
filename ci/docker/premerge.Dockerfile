@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2-sdk as build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
 WORKDIR /app
 COPY ./tools ./tools/
 COPY ./ci/docker/entrypoint.sh ./entrypoint.sh
