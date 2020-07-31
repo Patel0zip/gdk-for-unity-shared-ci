@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine as build
 
 # Copy everything and build
 WORKDIR /app
@@ -6,19 +6,19 @@ COPY ./tools ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/runtime:3.1
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1-alpine
 WORKDIR /app
 COPY --from=build /app/out ./
 
 # Setup GIT
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y git && \
+RUN apk -U upgrade && \
+    apk add git && \
     git config --global user.name "GDK for Unity Bot" && \
     git config --global user.email "gdk-for-unity-bot@improbable.io" && \
     git config --global core.sshCommand "ssh -i /var/ssh/id_rsa" && \
     mkdir -p /root/.ssh && \
     touch /root/.ssh/known_hosts && \
+    apk add --no-cache openssh-client && \
     ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 # Create a volume to mount our SSH key into and configure git to use it.
