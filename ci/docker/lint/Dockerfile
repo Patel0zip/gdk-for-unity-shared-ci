@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic
 
 # Install the linting tool
 RUN dotnet tool install --global --version 3.3.111304 dotnet-format

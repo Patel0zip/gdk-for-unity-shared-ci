@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic as build
 WORKDIR /app
 COPY ./tools ./tools/
 COPY ./ci/docker/entrypoint.sh ./entrypoint.sh
